@@ -175,6 +175,7 @@ background-color: #ff1493 !important;
       text-shadow: 0 0 5px #ff69b4 !important;
     }
     .status-dot {
+  border: 1px solid white;
       display: inline-block;
       width: 12px;
       height: 12px;
@@ -315,6 +316,8 @@ background-color: #ff1493 !important;
       video.muted = false;
       video.volume = 0.08;
       video.play();
+
+  fetchStatus(); // Moved here for Cloudflare timing
     }
     function toggleTheme() {
       const body = document.body;
@@ -334,6 +337,8 @@ background-color: #ff1493 !important;
       }
       video.load();
       video.play();
+
+  fetchStatus(); // Moved here for Cloudflare timing
     }
     document.addEventListener("contextmenu", (e) => e.preventDefault());
     document.addEventListener("keydown", (e) => {
@@ -356,7 +361,7 @@ background-color: #ff1493 !important;
         else if (presence.discord_status === "idle") statusClass = "status-idle";
 		else if (presence.discord_status === "dnd") {
 			statusClass = "status-dnd";
-			presence.discord_status = "Do Not Disturb";
+			presence.discord_status = "DND";
 		}
 
         let html = `<span class='status-dot ${statusClass}'></span>Status: ${presence.discord_status}`;
@@ -370,13 +375,14 @@ background-color: #ff1493 !important;
           html += `<br><span style='color:#ff66ff;'>🎵 ${presence.spotify.song}</span> by <span style='color:#cc99ff;'>${presence.spotify.artist}</span>`;
           html += `<br><img src='${presence.spotify.album_art_url}' alt='Album Art' style='width:150px;height:150px;border-radius:10px;object-fit:cover;'>`;
         }
-        document.getElementById("lanyard").innerHTML = html;
+        const lanyardEl = document.getElementById("lanyard");
+        if (lanyardEl) lanyardEl.innerHTML = html;
       } catch (e) {
         console.error("Lanyard fetch error", e);
       }
     }
     setInterval(fetchStatus, 15000);
-    document.addEventListener("DOMContentLoaded", fetchStatus);
+    
 
 document.addEventListener("DOMContentLoaded", () => {
   const intro = document.getElementById("intro-screen");
@@ -397,6 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 </style><style>
 .status-dot {
+  border: 1px solid white;
   display: inline-block;
   width: 10px;
   height: 10px;
@@ -485,35 +492,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       video.load();
       video.play();
+
+  fetchStatus(); // Moved here for Cloudflare timing
     });
   }
-});
-</script><script>
-document.addEventListener("DOMContentLoaded", function () {
-  const userId = "365890906836041741";
-
-  fetch(`https://api.lanyard.rest/v1/users/${userId}`)
-    .then(res => res.json())
-    .then(({ data }) => {
-      const rawStatus = data.discord_status;
-      let statusClass = "status-offline";
-      let displayStatus = rawStatus;
-
-      if (rawStatus === "online") statusClass = "status-online";
-      else if (rawStatus === "idle") statusClass = "status-idle";
-      else if (rawStatus === "dnd") {
-        statusClass = "status-dnd";
-        displayStatus = "Do Not Disturb";
-      } else {
-        displayStatus = rawStatus.charAt(0).toUpperCase() + rawStatus.slice(1);
-      }
-
-      const dot = `<span class="status-dot ${statusClass}"></span>`;
-      document.getElementById("lanyard").innerHTML = `${dot}Status: ${displayStatus}`;
-    })
-    .catch(() => {
-      document.getElementById("lanyard").innerText = "Unable to fetch status.";
-    });
 });
 </script></body>
 </html>
