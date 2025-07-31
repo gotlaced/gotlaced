@@ -283,7 +283,7 @@ background-color: #ff1493 !important;
     @keyframes fadeDot {
       from {
         opacity: 0.3;
-        transform: scale(0.9);
+        transform: scale(0.9);`
       }
       to {
         opacity: 1;
@@ -376,35 +376,25 @@ background-color: #ff1493 !important;
   </script>
 </head>
 <body>
-  <div
-    id="intro-screen"
-    style="
-      position: fixed;
-      inset: 0;
-      background: black;
-      color: rgba(150, 0, 0, 0.721);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-    "
-  >
-    <p style="font-size: 1.5rem;">FLASH WARNING</p>
-    <button
-      onclick="startExperience()"
-      style="
-        padding: 10px 20px;
-        font-size: 1rem;
-        background: rgb(163, 1, 1);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-      "
-    >
-      Enter Site
-    </button>
+	<div
+  id="intro-screen"
+  onclick="startExperience()"
+  style="
+    position: fixed;
+    inset: 0;
+    background: black;
+    color: rgba(150, 0, 0, 0.721);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    cursor: pointer;
+  "
+>
+  <p style="font-size: 2rem; color: white;">click to enter...</p>
+</div>
+</div>
   </div>
 
   <button class="theme-toggle" onclick="toggleTheme()">Girly Theme:3</button>
