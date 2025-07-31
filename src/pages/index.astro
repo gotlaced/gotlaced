@@ -148,11 +148,11 @@ background-color: #ff1493 !important;
     }
     .overlay-content p {
       font-size: 1.2rem;
-      animation: typewriter 1.3s steps(13, end) 0.5s 1 normal both;
+      animation: typewriter 4s steps(40, end) 1s 1 normal both;
       white-space: nowrap;
       overflow: hidden;
       border-right: 2px solid #fff;
-      width: 11ch;
+      width: 0;
       margin: 0 auto 10px auto;
       transition: border-color 0.3s ease, color 0.3s ease;
     }
@@ -278,7 +278,7 @@ background-color: #ff1493 !important;
         width: 0;
       }
       to {
-        width: 11ch;
+        width: 100%;
       }
     }
     @keyframes fadeDot {
@@ -344,7 +344,7 @@ background-color: #ff1493 !important;
         e.preventDefault();
       }
     });
-    const userId = "962344088236064808";
+    const userId = "365890906836041741";
     async function fetchStatus() {
       try {
         const res = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
@@ -390,7 +390,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
   </script>
-<link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-vXQ2N0m3sU6z1OnXxWOKhx6UO4lY8aRgcIoYoCmjQkbmkFhJMuPyUQEYJ4+VYVZdZ6uTDX+9uJHHw+vXQ0W0Kg==" referrerpolicy="no-referrer" rel="stylesheet"/></head>
+<style>
+.social-icon:hover {
+  transform: scale(1.2);
+  fill: #ff69b4;
+}
+</style></head>
 <body>
 <div id="intro-screen" style="
     position: fixed;
@@ -426,9 +431,9 @@ document.addEventListener("DOMContentLoaded", () => {
 <p>七転び八起き</p>
 <div class="lanyard-status" id="lanyard"></div>
 <div id="view-counter" style="margin-top: 10px; color: #ccc; font-size: 1rem;"></div>
-<div class="links">
-<a href="https://instagram.com/Ninnyyy" target="_blank"><i class="fab fa-instagram"></i></a>
-<a href="https://discord.com/users/962344088236064808" target="_blank"><i class="fab fa-discord"></i></a>
+<div class="links" style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;">
+<a href="https://instagram.com/Ninnyyy" style="display: inline-flex; align-items: center; justify-content: center;" target="_blank"><img alt="Instagram" height="32" src="https://cdn-icons-png.flaticon.com/512/174/174855.png" width="32"/></a>
+<a href="https://discord.com/users/962344088236064808" style="display: inline-flex; align-items: center; justify-content: center;" target="_blank"><img alt="Discord" height="32" src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" width="32"/></a>
 </div>
 </div>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967dc4ba0e75de9a',t:'MTc1Mzk3MTk2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>
