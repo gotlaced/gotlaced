@@ -356,7 +356,7 @@ background-color: #ff1493 !important;
         else if (presence.discord_status === "idle") statusClass = "status-idle";
 		else if (presence.discord_status === "dnd") {
 			statusClass = "status-dnd";
-			presence.discord_status = "DND";
+			presence.discord_status = "Do Not Disturb";
 		}
 
         let html = `<span class='status-dot ${statusClass}'></span>Status: ${presence.discord_status}`;
@@ -487,6 +487,33 @@ document.addEventListener("DOMContentLoaded", () => {
       video.play();
     });
   }
+});
+</script><script>
+document.addEventListener("DOMContentLoaded", function () {
+  const userId = "365890906836041741";
+
+  fetch(`https://api.lanyard.rest/v1/users/${userId}`)
+    .then(res => res.json())
+    .then(({ data }) => {
+      const rawStatus = data.discord_status;
+      let statusClass = "status-offline";
+      let displayStatus = rawStatus;
+
+      if (rawStatus === "online") statusClass = "status-online";
+      else if (rawStatus === "idle") statusClass = "status-idle";
+      else if (rawStatus === "dnd") {
+        statusClass = "status-dnd";
+        displayStatus = "Do Not Disturb";
+      } else {
+        displayStatus = rawStatus.charAt(0).toUpperCase() + rawStatus.slice(1);
+      }
+
+      const dot = `<span class="status-dot ${statusClass}"></span>`;
+      document.getElementById("lanyard").innerHTML = `${dot}Status: ${displayStatus}`;
+    })
+    .catch(() => {
+      document.getElementById("lanyard").innerText = "Unable to fetch status.";
+    });
 });
 </script></body>
 </html>
