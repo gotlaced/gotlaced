@@ -403,7 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ">
 <p style="font-size: 2rem; color: white; pointer-events: none;">click to enter...</p>
 </div>
-<button class="theme-toggle" onclick="toggleTheme()">Girly Theme:3</button>
+<button class="theme-toggle">Girly Theme:3</button>
 <video autoplay="" id="video-bg" loop="" muted="" playsinline="" style="
       position: fixed;
       top: 0;
@@ -417,7 +417,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <source id="video-source" src="https://pub-ce6fdb0e40cb4768bcd4d886b207dbc4.r2.dev/anime%20edit.mp4" type="video/mp4"/>
     Your browser does not support HTML5 video.
   </video>
-<button class="mute-btn" id="muteBtn" onclick="toggleMute()">Mute</button>
+<button class="mute-btn" id="muteBtn">Mute</button>
 <div class="overlay-content">
 <h1>𝓙𝓪𝔂𝓭𝓮𝓷</h1>
 <p>七転び八起き</p>
@@ -428,5 +428,44 @@ document.addEventListener("DOMContentLoaded", () => {
 <a href="https://discord.com/users/962344088236064808" target="_blank"><i class="fab fa-discord"></i></a>
 </div>
 </div>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967dc4ba0e75de9a',t:'MTc1Mzk3MTk2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967dc4ba0e75de9a',t:'MTc1Mzk3MTk2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>
+document.addEventListener("DOMContentLoaded", () => {
+  const intro = document.getElementById("intro-screen");
+  const muteBtn = document.getElementById("muteBtn");
+  const themeBtn = document.querySelector(".theme-toggle");
+
+  if (intro) {
+    intro.addEventListener("click", (e) => {
+      if (e.target === intro) {
+        startExperience();
+      }
+    });
+  }
+
+  if (muteBtn) {
+    muteBtn.addEventListener("click", () => {
+      const video = document.getElementById("video-bg");
+      video.muted = !video.muted;
+      muteBtn.textContent = video.muted ? "Unmute" : "Mute";
+    });
+  }
+
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      const body = document.body;
+      const video = document.getElementById("video-bg");
+      const source = document.getElementById("video-source");
+
+      body.classList.toggle("hello-kitty");
+      if (body.classList.contains("hello-kitty")) {
+        source.src = "https://pub-71e6b2b655254887bd73d223444eff54.r2.dev/hellokittyvideo.mp4";
+      } else {
+        source.src = "https://pub-ce6fdb0e40cb4768bcd4d886b207dbc4.r2.dev/anime%20edit.mp4";
+      }
+      video.load();
+      video.play();
+    });
+  }
+});
+</script></body>
 </html>
