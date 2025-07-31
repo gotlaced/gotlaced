@@ -175,7 +175,6 @@ background-color: #ff1493 !important;
       text-shadow: 0 0 5px #ff69b4 !important;
     }
     .status-dot {
-  border: 1px solid white;
       display: inline-block;
       width: 12px;
       height: 12px;
@@ -371,7 +370,27 @@ background-color: #ff1493 !important;
           html += `<br><span style='color:#ff66ff;'>🎵 ${presence.spotify.song}</span> by <span style='color:#cc99ff;'>${presence.spotify.artist}</span>`;
           html += `<br><img src='${presence.spotify.album_art_url}' alt='Album Art' style='width:150px;height:150px;border-radius:10px;object-fit:cover;'>`;
         }
-        document.getElementById("lanyard").innerHTML = html;
+        
+const statusDot = document.getElementById("status-dot");
+const statusText = document.getElementById("status-text");
+
+if (!statusDot || !statusText) return;
+
+let statusClass = "status-offline";
+let statusLabel = presence.discord_status;
+
+if (statusLabel === "online") statusClass = "status-online";
+else if (statusLabel === "idle") statusClass = "status-idle";
+else if (statusLabel === "dnd") {
+  statusClass = "status-dnd";
+  statusLabel = "DND";
+}
+
+statusLabel = statusLabel.toUpperCase();
+
+statusDot.className = `status-dot ${statusClass}`;
+statusText.textContent = `Status: ${statusLabel}`;
+
       } catch (e) {
         console.error("Lanyard fetch error", e);
       }
@@ -396,6 +415,19 @@ document.addEventListener("DOMContentLoaded", () => {
   transform: scale(1.2);
   fill: #ff69b4;
 }
+</style><style>
+.status-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.status-online { background-color: #43b581 !important; }
+.status-idle { background-color: #faa61a !important; }
+.status-dnd { background-color: #f04747 !important; }
+.status-offline { background-color: #747f8d !important; }
 </style></head>
 <body>
 <div id="intro-screen" style="
@@ -430,10 +462,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="overlay-content">
 <h1>𝓙𝓪𝔂𝓭𝓮𝓷</h1>
 <p>七転び八起き</p>
-<div class="lanyard-status">
-  <span class="status-dot status-online"></span>Hardcoded Test: Online
-</div>
-<div class="lanyard-status" id="lanyard"></div>
+<div class="lanyard-status"><span id="status-dot" class="status-dot status-offline"></span><span id="status-text">Status: Offline</span></div>
 <div id="view-counter" style="margin-top: 10px; color: #ccc; font-size: 1rem;"></div>
 <div class="links" style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;">
 <a href="https://www.instagram.com/sheadorejayden/" style="display: inline-flex; align-items: center; justify-content: center;" target="_blank"><img alt="Instagram" height="32" src="https://cdn-icons-png.flaticon.com/512/174/174855.png" width="32"/></a>
