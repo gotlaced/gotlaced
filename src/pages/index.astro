@@ -182,16 +182,16 @@ background-color: #ff1493 !important;
       margin-right: 6px;
       animation: fadeDot 2s ease-in-out infinite alternate;
     }
-    .status-online {
+    .status-Online {
       background: #43b581;
     }
-    .status-idle {
+    .status-Idle {
       background: #faa61a;
     }
     .status-dnd {
       background: #f04747;
     }
-    .status-offline {
+    .status-Offline {
       background: #747f8d;
     }
     .lanyard-status img {
@@ -351,9 +351,9 @@ background-color: #ff1493 !important;
         const data = await res.json();
         if (!data.success) return;
         const presence = data.data;
-        let statusClass = "status-offline";
-        if (presence.discord_status === "online") statusClass = "status-online";
-        else if (presence.discord_status === "idle") statusClass = "status-idle";
+        let statusClass = "status-Offline";
+        if (presence.discord_status === "Online") statusClass = "status-online";
+        else if (presence.discord_status === "Idle") statusClass = "status-idle";
 		else if (presence.discord_status === "dnd") {
 			statusClass = "status-dnd";
 			presence.discord_status = "Do Not Disturb";
