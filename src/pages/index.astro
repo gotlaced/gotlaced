@@ -305,7 +305,7 @@ background-color: #ff1493 !important;
       video.muted = !video.muted;
       document.getElementById("muteBtn").textContent = video.muted ? "Unmute" : "Mute";
     }
-    function startExperience() {
+    window.startExperience = function () {
       document.getElementById("intro-screen").style.display = "none";
       document.getElementById("video-bg").style.display = "block";
       document.querySelector(".overlay-content").style.display = "block";
@@ -376,8 +376,10 @@ background-color: #ff1493 !important;
   </script>
 </head>
 <body>
-	<div
+	
+<div
   id="intro-screen"
+  onclick="startExperience()"
   style="
     position: fixed;
     inset: 0;
@@ -390,12 +392,10 @@ background-color: #ff1493 !important;
     z-index: 10000;
     cursor: pointer;
   "
-  onclick="startExperience()"
 >
   <p style="font-size: 2rem; color: white; pointer-events: none;">click to enter...</p>
 </div>
-</div>
-</div>
+
   </div>
 
   <button class="theme-toggle" onclick="toggleTheme()">Girly Theme:3</button>
