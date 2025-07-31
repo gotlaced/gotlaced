@@ -316,8 +316,6 @@ background-color: #ff1493 !important;
       video.muted = false;
       video.volume = 0.08;
       video.play();
-
-  fetchStatus(); // Moved here for Cloudflare timing
     }
     function toggleTheme() {
       const body = document.body;
@@ -337,8 +335,6 @@ background-color: #ff1493 !important;
       }
       video.load();
       video.play();
-
-  fetchStatus(); // Moved here for Cloudflare timing
     }
     document.addEventListener("contextmenu", (e) => e.preventDefault());
     document.addEventListener("keydown", (e) => {
@@ -375,14 +371,13 @@ background-color: #ff1493 !important;
           html += `<br><span style='color:#ff66ff;'>🎵 ${presence.spotify.song}</span> by <span style='color:#cc99ff;'>${presence.spotify.artist}</span>`;
           html += `<br><img src='${presence.spotify.album_art_url}' alt='Album Art' style='width:150px;height:150px;border-radius:10px;object-fit:cover;'>`;
         }
-        const lanyardEl = document.getElementById("lanyard");
-        if (lanyardEl) lanyardEl.innerHTML = html;
+        document.getElementById("lanyard").innerHTML = html;
       } catch (e) {
         console.error("Lanyard fetch error", e);
       }
     }
     setInterval(fetchStatus, 15000);
-    
+    document.addEventListener("DOMContentLoaded", fetchStatus);
 
 document.addEventListener("DOMContentLoaded", () => {
   const intro = document.getElementById("intro-screen");
@@ -401,20 +396,6 @@ document.addEventListener("DOMContentLoaded", () => {
   transform: scale(1.2);
   fill: #ff69b4;
 }
-</style><style>
-.status-dot {
-  border: 1px solid white;
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 6px;
-  vertical-align: middle;
-}
-.status-online { background-color: #43b581 !important; }
-.status-idle { background-color: #faa61a !important; }
-.status-dnd { background-color: #f04747 !important; }
-.status-offline { background-color: #747f8d !important; }
 </style></head>
 <body>
 <div id="intro-screen" style="
@@ -449,6 +430,9 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="overlay-content">
 <h1>𝓙𝓪𝔂𝓭𝓮𝓷</h1>
 <p>七転び八起き</p>
+<div class="lanyard-status">
+  <span class="status-dot status-online"></span>Hardcoded Test: Online
+</div>
 <div class="lanyard-status" id="lanyard"></div>
 <div id="view-counter" style="margin-top: 10px; color: #ccc; font-size: 1rem;"></div>
 <div class="links" style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;">
@@ -492,8 +476,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       video.load();
       video.play();
-
-  fetchStatus(); // Moved here for Cloudflare timing
     });
   }
 });
