@@ -148,11 +148,11 @@ background-color: #ff1493 !important;
     }
     .overlay-content p {
       font-size: 1.2rem;
-      animation: typewriter 1.5s steps(24, end) 0.5s 1 normal both;
+      animation: typewriter 4s steps(40, end) 1s 1 normal both;
       white-space: nowrap;
       overflow: hidden;
       border-right: 2px solid #fff;
-      width: 7ch;
+      width: 0;
       margin: 0 auto 10px auto;
       transition: border-color 0.3s ease, color 0.3s ease;
     }
@@ -278,7 +278,7 @@ background-color: #ff1493 !important;
         width: 0;
       }
       to {
-        width: 11ch;
+        width: 100%;
       }
     }
     @keyframes fadeDot {
@@ -368,7 +368,7 @@ background-color: #ff1493 !important;
         }
         if (presence.spotify) {
           html += `<br><span style='color:#ff66ff;'>🎵 ${presence.spotify.song}</span> by <span style='color:#cc99ff;'>${presence.spotify.artist}</span>`;
-          html += `<br><img src='${presence.spotify.album_art_url}' alt='Album Art'>`;
+          html += `<br><img src='${presence.spotify.album_art_url}' alt='Album Art' style='width:150px;height:150px;border-radius:10px;object-fit:cover;'>`;
         }
         document.getElementById("lanyard").innerHTML = html;
       } catch (e) {
