@@ -148,11 +148,11 @@ background-color: #ff1493 !important;
     }
     .overlay-content p {
       font-size: 1.2rem;
-      animation: typewriter 2s steps(20, end) 1s 1 normal both;
+      animation: typewriter 1.5s steps(24, end) 0.5s 1 normal both;
       white-space: nowrap;
       overflow: hidden;
       border-right: 2px solid #fff;
-      width: 0;
+      width: 7ch;
       margin: 0 auto 10px auto;
       transition: border-color 0.3s ease, color 0.3s ease;
     }
@@ -278,7 +278,7 @@ background-color: #ff1493 !important;
         width: 0;
       }
       to {
-        width: 30%;
+        width: 11ch;
       }
     }
     @keyframes fadeDot {
@@ -354,7 +354,10 @@ background-color: #ff1493 !important;
         let statusClass = "status-offline";
         if (presence.discord_status === "online") statusClass = "status-online";
         else if (presence.discord_status === "idle") statusClass = "status-idle";
-        else if (presence.discord_status === "dnd") statusClass = "status-dnd";
+		else if (presence.discord_status === "dnd") {
+			statusClass = "status-dnd";
+			presence.discord_status = "Do Not Disturb";
+		}
 
         let html = `<span class='status-dot ${statusClass}'></span>Status: ${presence.discord_status}`;
         if (presence.activities && presence.activities.length > 0) {
