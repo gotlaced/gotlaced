@@ -1,50 +1,450 @@
----
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
----
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Ninny</title>
+<link rel="icon" href="https://pub-ce6fdb0e40cb4768bcd4d886b207dbc4.r2.dev/Screenshot%202025-06-27%20195122.png" type="image/png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+body {
+margin: 0;
+padding: 0;
+width: 100vw;
+height: 100vh;
+font-family: sans-serif;
+background: black;
+overflow: hidden;
+ display: flex;
+justify-content: center;
+align-items: center;
+color: white;
+}
+body.hello-kitty {
+background: linear-gradient(
+90deg,
+rgba(255, 182, 193, 1) 0%,
+rgba(255, 240, 245, 1) 30%,
+rgba(255, 240, 245, 1) 60%,
+rgba(255, 182, 193, 1) 100%
+);
+animation: background-gradient 60s ease-in-out alternate infinite;
+background-size: 400% 400%;
+color: #ff69b4;
+}
+body.hello-kitty .overlay-content {
+color: #ff69b4;
+background-color: rgba(255, 182, 193, 0.3);
+border-color: #ff69b4 !important;
+box-shadow: 0 0 30px #ff69b4;
+}
+body.hello-kitty .links a,
+body.hello-kitty button,
+body.hello-kitty .btn,
+body.hello-kitty .button,
+body.hello-kitty .mute-btn,
+body.hello-kitty .theme-toggle {
+background-color: #ff69b4 !important;
+color: white !important;
+border: 2px solid #ff1493 !important;
+}
+body.hello-kitty .links a:hover,
+body.hello-kitty button:hover,
+body.hello-kitty .btn:hover,
+body.hello-kitty .button:hover,
+body.hello-kitty .mute-btn:hover,
+body.hello-kitty .theme-toggle:hover {
+background-color: #ff1493 !important;
+}
+    body.hello-kitty a,
+    body.hello-kitty .activelink {
+      color: #ff1493 !important;
+    }
+    body.hello-kitty .card_56SX,
+    body.hello-kitty .modal-Default,
+    body.hello-kitty .card {
+      background-color: rgba(255, 240, 245, 0.9) !important;
+      border: 2px solid #ff69b4 !important;
+    }
+    body.hello-kitty h1,
+    body.hello-kitty h2,
+    body.hello-kitty h3,
+    body.hello-kitty h4,
+    body.hello-kitty h5,
+    body.hello-kitty h6 {
+      color: #ff1493 !important;
+    }
+    body.hello-kitty::before {
+      content: "";
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 60px;
+      height: 60px;
+      background-image: url("https://cdn.discordapp.com/emojis/1315155051970564217.webp?size=96");
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: 1000;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #101010;
+      color: white;
+      border: 1px solid #fff;
+      transition: background-color 0.3s ease;
+    }
+    .theme-toggle:hover {
+      background-color: #a20000;
+    }
+    .mute-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      border: 1px solid #191919;
+      border-radius: 10px;
+      padding: 10px 15px;
+      cursor: pointer;
+      z-index: 2;
+      display: none;
+      transition: background-color 0.3s ease;
+    }
+    .mute-btn:hover {
+      background-color: rgba(168, 0, 0, 0.8);
+    }
+    .overlay-content {
+      animation: fadeInCenter 1.2s ease-out;
+      max-width: 90vw;
+      position: relative;
+      text-align: center;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px 40px;
+      border-radius: 15px;
+      border: 2px solid #969696;
+      box-shadow: 0 0 30px #8d0000;
+      display: none;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+    .overlay-content h1 {
+      font-size: 3rem;
+      animation: glitch 1.5s infinite;
+      color: #fff;
+      text-shadow: 0 0 5px #535353, 0 0 10px #920000;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+    body.hello-kitty .overlay-content h1 {
+      color: #ff1493 !important;
+      text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff69b4 !important;
+    }
+    .overlay-content p {
+      font-size: 1.2rem;
+      animation: typewriter 4s steps(40, end) 1s 1 normal both;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #fff;
+      width: 0;
+      margin: 0 auto 10px auto;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    body.hello-kitty .overlay-content p {
+      border-right-color: #ff69b4 !important;
+      color: #ff69b4 !important;
+    }
+    .lanyard-status {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: #fff;
+      text-align: center;
+      font-weight: bold;
+      line-height: 1.5;
+      text-shadow: 0 0 5px #910000;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+    body.hello-kitty .lanyard-status {
+      color: #ff1493 !important;
+      text-shadow: 0 0 5px #ff69b4 !important;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: fadeDot 2s ease-in-out infinite alternate;
+    }
+    .status-online {
+      background: #43b581;
+    }
+    .status-idle {
+      background: #faa61a;
+    }
+    .status-dnd {
+      background: #f04747;
+    }
+    .status-offline {
+      background: #747f8d;
+    }
+    .lanyard-status img {
+      margin-top: 10px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 0 15px #5f5f5f;
+      animation: spin 6s linear infinite;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      max-width: 150px;
+      max-height: 150px;
+      width: auto;
+      height: auto;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    body.hello-kitty .lanyard-status img {
+      box-shadow: 0 0 15px #ff69b4 !important;
+    }
+    .lanyard-status img:hover {
+      transform: scale(1.1) rotate(360deg);
+    }
+    .links {
+      margin-top: 20px;
+    }
+    .links a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #fff;
+      border-radius: 10px;
+      background-image: linear-gradient(90deg, #a80000, #101010, #970000);
+      background-size: 200% auto;
+      transition: all 0.3s ease;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    body.hello-kitty .links a {
+      background-image: linear-gradient(90deg, #ff69b4, #ff1493, #ff69b4);
+      color: white !important;
+      border: 2px solid #ff1493 !important;
+    }
+    .links a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #7a0000, 0 0 30px #000000;
+    }
+    body.hello-kitty .links a:hover {
+      box-shadow: 0 0 20px #ff69b4, 0 0 30px #ff1493 !important;
+    }
+    @keyframes fadeInCenter {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    @keyframes glitch {
+      0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translate(-2px, 2px);
+      }
+      40% {
+        transform: translate(-2px, -2px);
+      }
+      60% {
+        transform: translate(2px, 2px);
+      }
+      80% {
+        transform: translate(2px, -2px);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    @keyframes typewriter {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+    @keyframes fadeDot {
+      from {
+        opacity: 0.3;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <script>
+    function toggleMute() {
+      const video = document.getElementById("video-bg");
+      video.muted = !video.muted;
+      document.getElementById("muteBtn").textContent = video.muted ? "Unmute" : "Mute";
+    }
+    function startExperience() {
+      document.getElementById("intro-screen").style.display = "none";
+      document.getElementById("video-bg").style.display = "block";
+      document.querySelector(".overlay-content").style.display = "block";
+      document.getElementById("muteBtn").style.display = "block";
+      const video = document.getElementById("video-bg");
+      video.muted = false;
+      video.volume = 0.08;
+      video.play();
+    }
+    function toggleTheme() {
+      const body = document.body;
+      const video = document.getElementById("video-bg");
+      const source = document.getElementById("video-source");
+      body.classList.toggle("hello-kitty");
+      if (body.classList.contains("hello-kitty")) {
+        source.setAttribute(
+          "src",
+          "https://pub-71e6b2b655254887bd73d223444eff54.r2.dev/hellokittyvideo.mp4"
+        );
+      } else {
+        source.setAttribute(
+          "src",
+          "https://pub-ce6fdb0e40cb4768bcd4d886b207dbc4.r2.dev/anime%20edit.mp4"
+        );
+      }
+      video.load();
+      video.play();
+    }
+    document.addEventListener("contextmenu", (e) => e.preventDefault());
+    document.addEventListener("keydown", (e) => {
+      if (
+        ["F12", "I", "C", "J", "U"].includes(e.key.toUpperCase()) &&
+        (e.ctrlKey || e.metaKey || e.shiftKey)
+      ) {
+        e.preventDefault();
+      }
+    });
+    const userId = "962344088236064808";
+    async function fetchStatus() {
+      try {
+        const res = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
+        const data = await res.json();
+        if (!data.success) return;
+        const presence = data.data;
+        let statusClass = "status-offline";
+        if (presence.discord_status === "online") statusClass = "status-online";
+        else if (presence.discord_status === "idle") statusClass = "status-idle";
+        else if (presence.discord_status === "dnd") statusClass = "status-dnd";
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+        let html = `<span class='status-dot ${statusClass}'></span>Status: ${presence.discord_status}`;
+        if (presence.activities && presence.activities.length > 0) {
+          const game = presence.activities.find((a) => a.type === 0 && a.name !== "Spotify");
+          if (game) {
+            html += `<br>🎮 Playing: <span style='color:#ffcc00;'>${game.name}</span>`;
+          }
+        }
+        if (presence.spotify) {
+          html += `<br><span style='color:#ff66ff;'>🎵 ${presence.spotify.song}</span> by <span style='color:#cc99ff;'>${presence.spotify.artist}</span>`;
+          html += `<br><img src='${presence.spotify.album_art_url}' alt='Album Art'>`;
+        }
+        document.getElementById("lanyard").innerHTML = html;
+      } catch (e) {
+        console.error("Lanyard fetch error", e);
+      }
+    }
+    setInterval(fetchStatus, 15000);
+    document.addEventListener("DOMContentLoaded", fetchStatus);
+  </script>
+</head>
+<body>
+  <div
+    id="intro-screen"
+    style="
+      position: fixed;
+      inset: 0;
+      background: black;
+      color: rgba(150, 0, 0, 0.721);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    "
+  >
+    <p style="font-size: 1.5rem;">FLASH WARNING</p>
+    <button
+      onclick="startExperience()"
+      style="
+        padding: 10px 20px;
+        font-size: 1rem;
+        background: rgb(163, 1, 1);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      "
+    >
+      Enter Site
+    </button>
+  </div>
+
+  <button class="theme-toggle" onclick="toggleTheme()">Girly Theme:3</button>
+
+  <video
+    id="video-bg"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      display: none;
+    "
+  >
+    <source
+      id="video-source"
+      src="https://pub-ce6fdb0e40cb4768bcd4d886b207dbc4.r2.dev/anime%20edit.mp4"
+      type="video/mp4"
+    />
+    Your browser does not support HTML5 video.
+  </video>
+
+  <button class="mute-btn" id="muteBtn" onclick="toggleMute()">Mute</button>
+
+  <div class="overlay-content">
+    <h1>NINNY</h1>
+    <p>I only hope that my current me is better than the previous one.</p>
+    <div id="lanyard" class="lanyard-status"></div>
+    <div id="view-counter" style="margin-top: 10px; color: #ccc; font-size: 1rem;"></div>
+    <div class="links">
+      <a href="https://github.com/Ninnyyy" target="_blank">GitHub</a>
+      <a href="https://discord.com/users/962344088236064808" target="_blank">Discord</a>
+    </div>
+  </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967dc4ba0e75de9a',t:'MTc1Mzk3MTk2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
