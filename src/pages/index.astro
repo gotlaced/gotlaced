@@ -356,7 +356,7 @@ background-color: #ff1493 !important;
         else if (presence.discord_status === "idle") statusClass = "status-idle";
 		else if (presence.discord_status === "dnd") {
 			statusClass = "status-dnd";
-			presence.discord_status = "Do Not Disturb";
+			presence.discord_status = "DND";
 		}
 
         let html = `<span class='status-dot ${statusClass}'></span>Status: ${presence.discord_status}`;
