@@ -534,16 +534,28 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 <script>
   async function fetchViewCount() {
+    const pageKey = "viewed_sheadorejayden";
+    const countEl = document.getElementById("view-number");
+
     try {
-      const response = await fetch("https://viewcounter.keplarpayments.workers.dev/api/views?page=sheadorejayden");
-      const data = await response.json();
-      const countEl = document.getElementById("view-number");
-      countEl.textContent = data.views.toLocaleString();
+      if (!localStorage.getItem(pageKey)) {
+        // First visit, increment the count
+        const response = await fetch("https://viewcounter.keplarpayments.workers.dev/api/views?page=sheadorejayden");
+        const data = await response.json();
+        localStorage.setItem(pageKey, "true");
+        countEl.textContent = data.views.toLocaleString();
+      } else {
+        // Already visited, just get current count without incrementing
+        const response = await fetch("https://viewcounter.keplarpayments.workers.dev/api/views?page=sheadorejayden&increment=false");
+        const data = await response.json();
+        countEl.textContent = data.views.toLocaleString();
+      }
     } catch (error) {
       console.error("Failed to fetch views:", error);
-      document.getElementById("view-number").textContent = "N/A";
+      countEl.textContent = "N/A";
     }
   }
+
   document.addEventListener("DOMContentLoaded", fetchViewCount);
 </script>
 
