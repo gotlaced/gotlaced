@@ -3,21 +3,25 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === "/api/views") {
-      // Get current view count from KV namespace 'gotlacedlol'
-      let count = await env.gotlacedlol.get("count");
-      let newCount = count ? parseInt(count) + 1 : 1;
+      const countParam = url.searchParams.get("count");
+      const shouldCount = countParam === null || countParam === "true"; // default true
 
-      // Save new count
-      await env.gotlacedlol.put("count", newCount.toString());
+      let count = await env.VIEWS.get("count");
+      let newCount = count ? parseInt(count) : 0;
+
+      if (shouldCount) {
+        newCount++;
+        await env.VIEWS.put("count", newCount.toString());
+      }
 
       return new Response(JSON.stringify({ views: newCount }), {
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
+          "Access-Control-Allow-Origin": "*",
+        },
       });
     }
 
     return new Response("Not found", { status: 404 });
-  }
-}
+  },
+};
