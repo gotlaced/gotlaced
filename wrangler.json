@@ -10,7 +10,7 @@
   "kv_namespaces": [
     {
       "binding": "gotlacedlol",
-      "id": "25739ea5557949d79762a989c5725721" // ← Replace with your real ID
+      "id": "25739ea5557949d79762a989c5725721"
     }
   ],
   "observability": {
