@@ -3,12 +3,12 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === "/api/views") {
-      // Get current view count from KV
-      let count = await env.VIEWS.get("count");
+      // Get current view count from KV namespace 'gotlacedlol'
+      let count = await env.gotlacedlol.get("count");
       let newCount = count ? parseInt(count) + 1 : 1;
 
       // Save new count
-      await env.VIEWS.put("count", newCount.toString());
+      await env.gotlacedlol.put("count", newCount.toString());
 
       return new Response(JSON.stringify({ views: newCount }), {
         headers: {
