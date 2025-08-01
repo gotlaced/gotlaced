@@ -535,9 +535,11 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
 const baseUrl = "https://viewcounter.keplarpayments.workers.dev/api/views";
 
-async function fetchViewCount(increment) {
+async function fetchViewCount(increment, page) {
   try {
-    const url = increment ? baseUrl : `${baseUrl}?count=false`;
+    const url = increment 
+      ? `${baseUrl}?page=${encodeURIComponent(page)}`
+      : `${baseUrl}?page=${encodeURIComponent(page)}&increment=false`;
     const response = await fetch(url);
     const data = await response.json();
     document.getElementById("view-number").textContent = data.views.toLocaleString();
@@ -548,11 +550,12 @@ async function fetchViewCount(increment) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (!localStorage.getItem("hasCounted")) {
-    fetchViewCount(true);
-    localStorage.setItem("hasCounted", "true");
+  const pagePath = window.location.pathname; // e.g., "/sheadorejayden"
+  if (!localStorage.getItem(`hasCounted-${pagePath}`)) {
+    fetchViewCount(true, pagePath);
+    localStorage.setItem(`hasCounted-${pagePath}`, "true");
   } else {
-    fetchViewCount(false);
+    fetchViewCount(false, pagePath);
   }
 });
 </script>
