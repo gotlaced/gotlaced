@@ -1,27 +1,24 @@
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
+addEventListener("fetch", event => {
+  event.respondWith(handleRequest(event.request))
+});
 
-    if (url.pathname === "/api/views") {
-      const countParam = url.searchParams.get("count");
-      const shouldCount = countParam === null || countParam === "true"; // default true
+async function handleRequest(request) {
+  const url = new URL(request.url);
+  if (url.pathname === "/api/views") {
+    const countParam = url.searchParams.get("count");
+    const shouldCount = countParam === null || countParam === "true";
 
-      let count = await env.VIEWS.get("count");
-      let newCount = count ? parseInt(count) : 0;
+    let count = Number(await gotlacedlol.get("count")) || 0;
 
-      if (shouldCount) {
-        newCount++;
-        await env.VIEWS.put("count", newCount.toString());
-      }
-
-      return new Response(JSON.stringify({ views: newCount }), {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
+    if (shouldCount) {
+      count++;
+      await gotlacedlol.put("count", count.toString());
     }
 
-    return new Response("Not found", { status: 404 });
-  },
-};
+    return new Response(JSON.stringify({ views: count }), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  return new Response("Not found", { status: 404 });
+}
