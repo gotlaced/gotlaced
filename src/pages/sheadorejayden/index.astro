@@ -535,7 +535,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   async function fetchViewCount(increment) {
     try {
-      const url = increment ? "/api/views" : "/api/views?increment=false";
+      const url = increment ? "/api/views" : "/api/views?count=false";
       const response = await fetch(url);
       const data = await response.json();
       const countEl = document.getElementById("view-number");
