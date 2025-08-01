@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta charset="utf-8"/>
@@ -299,7 +298,7 @@ background-color: #ff1493 !important;
         transform: rotate(360deg);
       }
     }
-  
+
 .view-count {
   position: absolute;
   bottom: 15px;
@@ -364,7 +363,7 @@ background-color: #ff1493 !important;
       }
     });
     const userId = "365890906836041741";
-    
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const intro = document.getElementById("intro-screen");
@@ -480,8 +479,6 @@ document.addEventListener("DOMContentLoaded", () => {
   </a>
 </div>
 
-<div id="view-counter" style="margin-top: 10px; color: #ccc; font-size: 1rem;"></div>
-
 <div class="view-count">
   <img src="https://cdn-icons-png.flaticon.com/512/709/709612.png" alt="View Count" class="eye-icon" />
   <span id="view-number">...</span>
@@ -492,72 +489,55 @@ document.addEventListener("DOMContentLoaded", () => {
 <a href="https://discordapp.com/users/365890906836041741" style="display: inline-flex; align-items: center; justify-content: center;" target="_blank"><img alt="Discord" height="32" src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" width="32"/></a>
 </div>
 </div>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967dc4ba0e75de9a',t:'MTc1Mzk3MTk2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>
-document.addEventListener("DOMContentLoaded", () => {
-  const intro = document.getElementById("intro-screen");
-  const muteBtn = document.getElementById("muteBtn");
-  const themeBtn = document.querySelector(".theme-toggle");
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967dc4ba0e75de9a',t:'MTc1Mzk3MTk2Mi4wMDAwMDA='};var a=document.createElement('script');a.src='/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js';b.body.appendChild(a);";b.head.appendChild(d)}}var a=document.querySelector('#rocket-loader-js');a&&c()})();</script>
 
-  if (intro) {
-    intro.addEventListener("click", (e) => {
-      if (e.target === intro) {
-        startExperience();
-      }
-    });
-  }
-
-  if (muteBtn) {
-    muteBtn.addEventListener("click", () => {
-      const video = document.getElementById("video-bg");
-      video.muted = !video.muted;
-      muteBtn.textContent = video.muted ? "Unmute" : "Mute";
-    });
-  }
-
-  if (themeBtn) {
-    themeBtn.addEventListener("click", () => {
-      const body = document.body;
-      const video = document.getElementById("video-bg");
-      const source = document.getElementById("video-source");
-
-      body.classList.toggle("hello-kitty");
-      if (body.classList.contains("hello-kitty")) {
-        source.src = "https://pub-71e6b2b655254887bd73d223444eff54.r2.dev/hellokittyvideo.mp4";
-      } else {
-        source.src = "https://pub-ce6fdb0e40cb4768bcd4d886b207dbc4.r2.dev/anime%20edit.mp4";
-      }
-      video.load();
-      video.play();
-    });
-  }
-});
-</script>
 <script>
-  async function fetchViewCount() {
-    const pageKey = "viewed_sheadorejayden";
-    const countEl = document.getElementById("view-number");
-
-    try {
-      if (!localStorage.getItem(pageKey)) {
-        // First visit, increment the count
-        const response = await fetch("https://viewcounter.keplarpayments.workers.dev/api/views?page=sheadorejayden");
-        const data = await response.json();
-        localStorage.setItem(pageKey, "true");
-        countEl.textContent = data.views.toLocaleString();
-      } else {
-        // Already visited, just get current count without incrementing
-        const response = await fetch("https://viewcounter.keplarpayments.workers.dev/api/views?page=sheadorejayden&increment=false");
-        const data = await response.json();
-        countEl.textContent = data.views.toLocaleString();
+  async function incrementViewCountOnce() {
+    if (!localStorage.getItem("viewCounted")) {
+      try {
+        await fetch("https://viewcounter.keplarpayments.workers.dev/api/views", {
+          method: "POST"
+        });
+        localStorage.setItem("viewCounted", "true");
+      } catch (e) {
+        console.error("Failed to increment view count", e);
       }
-    } catch (error) {
-      console.error("Failed to fetch views:", error);
-      countEl.textContent = "N/A";
     }
   }
 
-  document.addEventListener("DOMContentLoaded", fetchViewCount);
-</script>
+  async function fetchViewCount() {
+    try {
+      const response = await fetch("https://viewcounter.keplarpayments.workers.dev/api/views");
+      const data = await response.json();
+      document.getElementById("view-number").textContent = data.views.toLocaleString();
+    } catch (error) {
+      console.error("Failed to fetch views:", error);
+      document.getElementById("view-number").textContent = "N/A";
+    }
+  }
 
+  document.addEventListener("DOMContentLoaded", async () => {
+    await incrementViewCountOnce();
+    fetchViewCount();
+  });
+
+  // Theme toggle button text
+  const themeToggleBtn = document.querySelector(".theme-toggle");
+  themeToggleBtn.addEventListener("click", () => {
+    toggleTheme();
+    // Update button text
+    if (document.body.classList.contains("hello-kitty")) {
+      themeToggleBtn.textContent = "Girly Theme:3 (On)";
+    } else {
+      themeToggleBtn.textContent = "Girly Theme:3";
+    }
+  });
+
+  // Mute button functionality
+  const muteBtn = document.getElementById("muteBtn");
+  muteBtn.addEventListener("click", () => {
+    toggleMute();
+  });
+</script>
 </body>
 </html>
