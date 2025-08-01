@@ -10,7 +10,7 @@ export default defineConfig({
   site: "https://gotlaced.lol",
   output: "server",
   image: {
-    service: "compile"
+    service: { name: "compile"}
   },
   integrations: [mdx(), sitemap()],
   adapter: cloudflare({
