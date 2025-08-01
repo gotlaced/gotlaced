@@ -11,19 +11,21 @@ async function handleRequest(request) {
     const ip = request.headers.get("CF-Connecting-IP");
     const ipKey = `viewed:${ip}`;
 
-    // Get current count from KV
     let count = Number(await gotlacedlol.get("count")) || 0;
 
     if (shouldCount && ip) {
-      const alreadyViewed = await gotlacedlol.get(ipKey);
+      const lastViewed = await gotlacedlol.get(ipKey);
 
-      if (!alreadyViewed) {
-        // IP hasn't viewed in the last 24h → increment
+      if (!lastViewed) {
+        // IP hasn't viewed in 24h → increment
         count++;
         await gotlacedlol.put("count", count.toString());
 
-        // Store IP with 24h TTL
-        await gotlacedlol.put(ipKey, "1", { expirationTtl: 86400 });
+        const timestamp = new Date().toISOString();
+        const logValue = JSON.stringify({ ip, timestamp });
+
+        // Store IP with TTL and log the timestamp
+        await gotlacedlol.put(ipKey, logValue, { expirationTtl: 86400 });
       }
     }
 
