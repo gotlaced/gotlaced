@@ -7,7 +7,6 @@
 <link href="https://i.pinimg.com/736x/9a/fc/08/9afc087acefb209854082660833d03a8.jpg" rel="icon" type="image/png"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <style>
-/* ... your existing styles here ... */
 body {
 margin: 0;
 padding: 0;
@@ -21,7 +20,286 @@ justify-content: center;
 align-items: center;
 color: white;
 }
-/* other styles unchanged... */
+body.hello-kitty {
+background: linear-gradient(
+90deg,
+rgba(255, 182, 193, 1) 0%,
+rgba(255, 240, 245, 1) 30%,
+rgba(255, 240, 245, 1) 60%,
+rgba(255, 182, 193, 1) 100%
+);
+animation: background-gradient 60s ease-in-out alternate infinite;
+background-size: 400% 400%;
+color: #ff69b4;
+}
+body.hello-kitty .overlay-content {
+color: #ff69b4;
+background-color: rgba(255, 182, 193, 0.3);
+border-color: #ff69b4 !important;
+box-shadow: 0 0 30px #ff69b4;
+}
+body.hello-kitty .links a,
+body.hello-kitty button,
+body.hello-kitty .btn,
+body.hello-kitty .button,
+body.hello-kitty .mute-btn,
+body.hello-kitty .theme-toggle {
+background-color: #ff69b4 !important;
+color: white !important;
+border: 2px solid #ff1493 !important;
+}
+body.hello-kitty .links a:hover,
+body.hello-kitty button:hover,
+body.hello-kitty .btn:hover,
+body.hello-kitty .button:hover,
+body.hello-kitty .mute-btn:hover,
+body.hello-kitty .theme-toggle:hover {
+background-color: #ff1493 !important;
+}
+    body.hello-kitty a,
+    body.hello-kitty .activelink {
+      color: #ff1493 !important;
+    }
+    body.hello-kitty .card_56SX,
+    body.hello-kitty .modal-Default,
+    body.hello-kitty .card {
+      background-color: rgba(255, 240, 245, 0.9) !important;
+      border: 2px solid #ff69b4 !important;
+    }
+    body.hello-kitty h1,
+    body.hello-kitty h2,
+    body.hello-kitty h3,
+    body.hello-kitty h4,
+    body.hello-kitty h5,
+    body.hello-kitty h6 {
+      color: #ff1493 !important;
+    }
+    body.hello-kitty::before {
+      content: "";
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 60px;
+      height: 60px;
+      background-image: url("https://cdn.discordapp.com/emojis/1315155051970564217.webp?size=96");
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: 1000;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      
+      background-color: #101010;
+      color: white;
+      border: 1px solid #fff;
+      transition: background-color 0.3s ease;
+    }
+    .theme-toggle:hover {
+      background-color: #a20000;
+    }
+    .mute-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      border: 1px solid #191919;
+      border-radius: 10px;
+      padding: 10px 15px;
+      
+      z-index: 2;
+      display: none;
+      transition: background-color 0.3s ease;
+    }
+    .mute-btn:hover {
+      background-color: rgba(168, 0, 0, 0.8);
+    }
+    .overlay-content {
+      animation: fadeInCenter 1.2s ease-out;
+      max-width: 90vw;
+      position: relative;
+      text-align: center;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px 40px;
+      border-radius: 15px;
+      border: 2px solid #969696;
+      box-shadow: 0 0 30px #8d0000;
+      display: none;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+    .overlay-content h1 {
+      font-size: 3rem;
+      animation: glitch 1.5s infinite;
+      color: #fff;
+      text-shadow: 0 0 5px #535353, 0 0 10px #920000;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+    body.hello-kitty .overlay-content h1 {
+      color: #ff1493 !important;
+      text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff69b4 !important;
+    }
+    .overlay-content p {
+      font-size: 1.2rem;
+      animation: typewriter 1.3s steps(13, end) 1s 1 normal both;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #fff;
+      width: 11ch;
+      margin: 0 auto 10px auto;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    body.hello-kitty .overlay-content p {
+      border-right-color: #ff69b4 !important;
+      color: #ff69b4 !important;
+    }
+    .lanyard-status {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: #fff;
+      text-align: center;
+      font-weight: bold;
+      line-height: 1.5;
+      text-shadow: 0 0 5px #910000;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+    body.hello-kitty .lanyard-status {
+      color: #ff1493 !important;
+      text-shadow: 0 0 5px #ff69b4 !important;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: fadeDot 2s ease-in-out infinite alternate;
+    }
+    .status-online {
+      background: #43b581;
+    }
+    .status-idle {
+      background: #faa61a;
+    }
+    .status-dnd {
+      background: #f04747;
+    }
+    .status-offline {
+      background: #747f8d;
+    }
+    .lanyard-status img {
+      margin-top: 10px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 0 15px #5f5f5f;
+      animation: spin 6s linear infinite;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      max-width: 150px;
+      max-height: 150px;
+      width: auto;
+      height: auto;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    body.hello-kitty .lanyard-status img {
+      box-shadow: 0 0 15px #ff69b4 !important;
+    }
+    .lanyard-status img:hover {
+      transform: scale(1.1) rotate(360deg);
+    }
+    .links {
+      margin-top: 20px;
+    }
+    .links a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #fff;
+      border-radius: 10px;
+      background-image: linear-gradient(90deg, #a80000, #101010, #970000);
+      background-size: 200% auto;
+      transition: all 0.3s ease;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    body.hello-kitty .links a {
+      background-image: linear-gradient(90deg, #ff69b4, #ff1493, #ff69b4);
+      color: white !important;
+      border: 2px solid #ff1493 !important;
+    }
+    .links a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #7a0000, 0 0 30px #000000;
+    }
+    body.hello-kitty .links a:hover {
+      box-shadow: 0 0 20px #ff69b4, 0 0 30px #ff1493 !important;
+    }
+    @keyframes fadeInCenter {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    @keyframes glitch {
+      0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translate(-2px, 2px);
+      }
+      40% {
+        transform: translate(-2px, -2px);
+      }
+      60% {
+        transform: translate(2px, 2px);
+      }
+      80% {
+        transform: translate(2px, -2px);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+    @keyframes typewriter {
+      from {
+        width: 0;
+      }
+      to {
+        width: 11ch;
+      }
+    }
+    @keyframes fadeDot {
+      from {
+        opacity: 0.3;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  
 .view-count {
   position: absolute;
   bottom: 15px;
@@ -39,7 +317,7 @@ color: white;
   margin-right: 6px;
   filter: invert(1);
 }
-/* rest of your styles unchanged... */
+
 </style>
 <script>
     function toggleMute() {
@@ -98,9 +376,64 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-</script>
+
+  </script>
 <style>
-/* Your repeated styles here (optional, keep only once) */
+.social-icon:hover {
+  transform: scale(1.2);
+  fill: #ff69b4;
+}
+
+.view-count {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  color: #ccc;
+  font-size: 1rem;
+  opacity: 0.8;
+  z-index: 2;
+}
+.eye-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  filter: invert(1);
+}
+
+</style><style>
+.status-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.status-online { background-color: #43b581 !important; }
+.status-idle { background-color: #faa61a !important; }
+.status-dnd { background-color: #f04747 !important; }
+.status-offline { background-color: #747f8d !important; }
+
+.view-count {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  color: #ccc;
+  font-size: 1rem;
+  opacity: 0.8;
+  z-index: 2;
+}
+.eye-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  filter: invert(1);
+}
+
 </style></head>
 <body>
 <div id="intro-screen" style="
@@ -159,8 +492,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <a href="https://discordapp.com/users/365890906836041741" style="display: inline-flex; align-items: center; justify-content: center;" target="_blank"><img alt="Discord" height="32" src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" width="32"/></a>
 </div>
 </div>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967dc4ba0e75de9a',t:'MTc1Mzk3MTk2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-<script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967dc4ba0e75de9a',t:'MTc1Mzk3MTk2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>
 document.addEventListener("DOMContentLoaded", () => {
   const intro = document.getElementById("intro-screen");
   const muteBtn = document.getElementById("muteBtn");
@@ -199,31 +531,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
-// View count script with refresh fix using localStorage
-async function updateViewCount(increment) {
-  try {
-    const url = increment ? "/api/views" : "/api/views?increment=false";
-    const response = await fetch(url);
-    const data = await response.json();
-    const countEl = document.getElementById("view-number");
-    countEl.textContent = data.views.toLocaleString();
-  } catch (error) {
-    console.error("Failed to fetch views:", error);
-    document.getElementById("view-number").textContent = "N/A";
+</script>
+<script>
+  async function fetchViewCount(increment) {
+    try {
+      // Append ?increment=false if increment is false, else no query param
+      const url = increment ? "/api/views" : "/api/views?increment=false";
+      const response = await fetch(url);
+      const data = await response.json();
+      const countEl = document.getElementById("view-number");
+      countEl.textContent = data.views.toLocaleString();
+    } catch (error) {
+      console.error("Failed to fetch views:", error);
+      document.getElementById("view-number").textContent = "N/A";
+    }
   }
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-  // If user hasn't counted yet, increment and set flag
-  if (!localStorage.getItem("hasCounted")) {
-    updateViewCount(true);
-    localStorage.setItem("hasCounted", "true");
-  } else {
-    // Otherwise, just fetch current count without increment
-    updateViewCount(false);
-  }
-});
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!localStorage.getItem("hasCounted")) {
+      fetchViewCount(true);  // Increment once
+      localStorage.setItem("hasCounted", "true");
+    } else {
+      fetchViewCount(false); // Just fetch count, no increment
+    }
+  });
 </script>
 
 </body>
