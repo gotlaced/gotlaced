@@ -533,33 +533,29 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 <script>
-  const baseUrl = "https://viewcounter.keplarpayments.workers.dev/api/views";
+const baseUrl = "https://viewcounter.keplarpayments.workers.dev/api/views";
 
-  async function fetchViewCount(increment) {
-    try {
-      const url = increment ? baseUrl : `${baseUrl}?count=false`;
-      const response = await fetch(url);
-      const data = await response.json();
-      const countEl = document.getElementById("view-number");
-      countEl.textContent = data.views.toLocaleString();
-    } catch (error) {
-      console.error("Failed to fetch views:", error);
-      document.getElementById("view-number").textContent = "N/A";
-    }
+async function fetchViewCount(increment) {
+  try {
+    const url = increment ? baseUrl : `${baseUrl}?count=false`;
+    const response = await fetch(url);
+    const data = await response.json();
+    document.getElementById("view-number").textContent = data.views.toLocaleString();
+  } catch (error) {
+    console.error("Failed to fetch views:", error);
+    document.getElementById("view-number").textContent = "N/A";
   }
+}
 
-  document.addEventListener("DOMContentLoaded", () => {
-    if (!localStorage.getItem("hasCounted")) {
-      fetchViewCount(true);
-      localStorage.setItem("hasCounted", "true");
-    } else {
-      fetchViewCount(false);
-    }
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  if (!localStorage.getItem("hasCounted")) {
+    fetchViewCount(true);
+    localStorage.setItem("hasCounted", "true");
+  } else {
+    fetchViewCount(false);
+  }
+});
 </script>
-
-
-
 
 </body>
 </html>
