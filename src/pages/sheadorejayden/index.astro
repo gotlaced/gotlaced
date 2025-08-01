@@ -535,7 +535,8 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   async function fetchViewCount(increment) {
     try {
-      const url = increment ? "/api/views" : "/api/views?count=false";
+      const baseUrl = "https://viewcounter.keplarpayments.workers.dev/api/views"; 
+      const url = increment ? baseUrl : `${baseUrl}?count=false`;
       const response = await fetch(url);
       const data = await response.json();
       const countEl = document.getElementById("view-number");
@@ -555,6 +556,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 </script>
+
 
 
 </body>
