@@ -2,12 +2,11 @@ addEventListener("fetch", event => {
   event.respondWith(handleRequest(event.request));
 });
 
-const allowedOrigin = "https://gotlaced.lol"; // your site domain
+const allowedOrigin = "https://gotlaced.lol"; // Your site domain
 
 async function handleRequest(request) {
   const url = new URL(request.url);
 
-  // Handle CORS preflight OPTIONS request
   if (request.method === "OPTIONS") {
     return new Response(null, {
       status: 204,
