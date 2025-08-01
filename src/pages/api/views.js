@@ -2,7 +2,16 @@ addEventListener("fetch", event => {
   event.respondWith(handleRequest(event.request));
 });
 
-const allowedOrigin = "https://gotlaced.lol"; // Your site domain
+const allowedOrigins = ["https://gotlaced.lol"];
+
+function corsHeaders(request) {
+  const origin = request.headers.get("Origin") || "";
+  return {
+    "Access-Control-Allow-Origin": allowedOrigins.includes(origin) ? origin : "",
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+}
 
 async function handleRequest(request) {
   const url = new URL(request.url);
@@ -10,7 +19,7 @@ async function handleRequest(request) {
   if (request.method === "OPTIONS") {
     return new Response(null, {
       status: 204,
-      headers: corsHeaders(),
+      headers: corsHeaders(request),
     });
   }
 
@@ -28,18 +37,10 @@ async function handleRequest(request) {
     return new Response(JSON.stringify({ views: count }), {
       headers: {
         "Content-Type": "application/json",
-        ...corsHeaders(),
+        ...corsHeaders(request),
       },
     });
   }
 
   return new Response("Not found", { status: 404 });
-}
-
-function corsHeaders() {
-  return {
-    "Access-Control-Allow-Origin": allowedOrigin,
-    "Access-Control-Allow-Methods": "GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-  };
 }
