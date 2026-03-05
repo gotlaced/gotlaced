@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <title>@♱</title>
   <link href="https://i.pinimg.com/736x/9a/fc/08/9afc087acefb209854082660833d03a8.jpg" rel="icon" type="image/png"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       width: 100vw;
       height: 100vh;
       font-family: sans-serif;
@@ -130,6 +134,17 @@
 
     .mute-btn:hover {
       background-color: rgba(168, 0, 0, 0.8);
+    }
+
+    #video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      display: none;
     }
 
     .overlay-content {
@@ -299,10 +314,21 @@
     }
 
     #intro-screen {
+      position: fixed;
+      inset: 0;
+      background: black;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
       cursor: pointer;
     }
 
     #intro-screen p {
+      font-size: 2rem;
+      color: white;
       pointer-events: none;
     }
 
@@ -379,42 +405,23 @@
 </head>
 <body>
   <!-- Intro Screen -->
-  <div id="intro-screen" style="
-    position: fixed;
-    inset: 0;
-    background: black;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-  ">
-    <p style="font-size: 2rem; color: white;">click to enter...</p>
+  <div id="intro-screen">
+    <p>click to enter...</p>
   </div>
 
   <!-- Theme Toggle Button -->
-  <button class="theme-toggle">Girly Theme:3</button>
+  <button class="theme-toggle" id="themeToggle">Girly Theme:3</button>
 
   <!-- Background Video -->
   <video 
-    id="video-bg" 
-    loop 
-    muted 
-    playsinline 
-    preload="auto"
-    style="
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      display: none;
-    ">
+    id="video-bg"
+    loop
+    muted
+    playsinline
+    preload="metadata"
+    crossorigin="anonymous"
+  >
     <source id="video-source" src="https://pub-ce6fdb0e40cb4768bcd4d886b207dbc4.r2.dev/anime%20edit.mp4" type="video/mp4"/>
-    Your browser does not support HTML5 video.
   </video>
 
   <!-- Mute Button -->
@@ -427,7 +434,7 @@
 
     <!-- Lanyard Discord Presence -->
     <div class="lanyard-status" style="margin-top: 20px; text-align: center;">
-      <a href="https://discord.com/users/365890906836041741" target="_blank">
+      <a href="https://discord.com/users/365890906836041741" target="_blank" rel="noopener noreferrer">
         <img
           src="https://lanyard.cnrad.dev/api/365890906836041741?theme=dark&borderRadius=30px&animated=true&showDisplayName=true"
           alt="Jayden's Discord Presence"
@@ -444,61 +451,90 @@
 
     <!-- Social Links -->
     <div class="links" style="display: flex; justify-content: center; gap: 20px; margin-top: 10px;">
-      <a href="https://www.instagram.com/sheadorejayden/" style="display: inline-flex; align-items: center; justify-content: center;" target="_blank">
+      <a href="https://www.instagram.com/sheadorejayden/" style="display: inline-flex; align-items: center; justify-content: center;" target="_blank" rel="noopener noreferrer">
         <img alt="Instagram" height="22" src="https://cdn-icons-png.flaticon.com/512/174/174855.png" width="22"/>
       </a>
-      <a href="https://discordapp.com/users/365890906836041741" style="display: inline-flex; align-items: center; justify-content: center;" target="_blank">
+      <a href="https://discordapp.com/users/365890906836041741" style="display: inline-flex; align-items: center; justify-content: center;" target="_blank" rel="noopener noreferrer">
         <img alt="Discord" height="22" src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" width="22"/>
       </a>
     </div>
   </div>
 
-  <!-- Consolidated JavaScript -->
   <script>
+    // Wait for DOM to be fully loaded
     document.addEventListener("DOMContentLoaded", () => {
       const intro = document.getElementById("intro-screen");
       const muteBtn = document.getElementById("muteBtn");
-      const themeBtn = document.querySelector(".theme-toggle");
+      const themeBtn = document.getElementById("themeToggle");
       const video = document.getElementById("video-bg");
       const source = document.getElementById("video-source");
       const overlayContent = document.querySelector(".overlay-content");
 
-      // Start experience function
-      window.startExperience = function () {
-        if (!intro || !video || !overlayContent || !muteBtn) return;
+      let hasStarted = false;
 
+      // Function to attempt video playback
+      async function attemptPlay() {
+        try {
+          await video.play();
+          console.log("✅ Video playing successfully");
+          return true;
+        } catch (err) {
+          console.warn("❌ Video play failed:", err.message);
+          
+          // Try alternative approach
+          video.muted = true;
+          try {
+            await video.play();
+            console.log("✅ Video playing (muted fallback)");
+            return true;
+          } catch (err2) {
+            console.error("❌ Video play failed completely:", err2);
+            return false;
+          }
+        }
+      }
+
+      // Start experience function
+      async function startExperience() {
+        if (hasStarted) return;
+        hasStarted = true;
+
+        console.log("🎬 Starting experience...");
+
+        // Hide intro
         intro.style.display = "none";
+
+        // Show video element
         video.style.display = "block";
+        
+        // Show overlay
         overlayContent.style.display = "block";
+        
+        // Show mute button
         muteBtn.style.display = "block";
 
-        // Ensure video is muted first for autoplay policy compliance
+        // Set initial video properties
         video.muted = true;
         video.volume = 0.08;
 
-        // Play video and handle promise
-        const playPromise = video.play();
+        // Force load the video
+        video.load();
 
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              console.log("Video playback started successfully");
-            })
-            .catch((error) => {
-              console.error("Video playback failed:", error);
-              // Retry with user interaction already happened
-              setTimeout(() => {
-                video.play().catch(e => console.error("Retry failed:", e));
-              }, 100);
-            });
+        // Wait a bit for video to be ready
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        // Attempt to play
+        const success = await attemptPlay();
+
+        if (!success) {
+          console.warn("⚠️ Showing fallback background");
+          document.body.style.background = "linear-gradient(135deg, #1a1a1a 0%, #000000 100%)";
         }
-      };
+      }
 
       // Intro screen click handler
       if (intro) {
-        intro.addEventListener("click", (e) => {
-          startExperience();
-        });
+        intro.addEventListener("click", startExperience);
       }
 
       // Mute button handler
@@ -511,9 +547,8 @@
 
       // Theme toggle handler
       if (themeBtn) {
-        themeBtn.addEventListener("click", () => {
+        themeBtn.addEventListener("click", async () => {
           const body = document.body;
-
           body.classList.toggle("hello-kitty");
 
           const newSrc = body.classList.contains("hello-kitty")
@@ -523,13 +558,11 @@
           source.src = newSrc;
           video.load();
 
-          // Handle play promise for theme change
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            playPromise.catch((error) => {
-              console.error("Video playback failed after theme change:", error);
-            });
-          }
+          // Wait for load
+          await new Promise(resolve => setTimeout(resolve, 100));
+          
+          // Attempt play
+          await attemptPlay();
         });
       }
 
@@ -542,8 +575,10 @@
           const url = increment
             ? `${baseUrl}?page=${encodeURIComponent(pagePath)}`
             : `${baseUrl}?page=${encodeURIComponent(pagePath)}&increment=false`;
+          
           const response = await fetch(url);
           const data = await response.json();
+          
           const viewNumberEl = document.getElementById("view-number");
           if (viewNumberEl) {
             viewNumberEl.textContent = data.views.toLocaleString();
@@ -557,18 +592,25 @@
         }
       }
 
-      if (!localStorage.getItem(`hasCounted-${pagePath}`)) {
+      const hasCountedKey = `hasCounted-${pagePath}`;
+      if (!localStorage.getItem(hasCountedKey)) {
         fetchViewCount(true);
-        localStorage.setItem(`hasCounted-${pagePath}`, "true");
+        localStorage.setItem(hasCountedKey, "true");
       } else {
         fetchViewCount(false);
       }
+
+      // Video event listeners for debugging
+      video.addEventListener('loadeddata', () => console.log('📹 Video loaded'));
+      video.addEventListener('canplay', () => console.log('▶️ Video can play'));
+      video.addEventListener('playing', () => console.log('🎥 Video is playing'));
+      video.addEventListener('error', (e) => console.error('❌ Video error:', e));
     });
 
-    // Prevent right-click context menu
+    // Prevent right-click
     document.addEventListener("contextmenu", (e) => e.preventDefault());
 
-    // Prevent dev tools shortcuts
+    // Prevent dev tools
     document.addEventListener("keydown", (e) => {
       if (
         ["F12", "I", "C", "J", "U"].includes(e.key.toUpperCase()) &&
